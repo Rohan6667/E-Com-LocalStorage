@@ -4,12 +4,15 @@ const productsContainer = document.querySelector("#product-container");
 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+const spinner = document.querySelector(".spinner");
+spinner.style.display = "block"; // Show spinner while fetching data from API.
+
 /* Asnchronous function that fetches data from API. */
 async function renderProducts(url) {
   try {
     let response = await fetch(url);
+    spinner.style.display = "none"; // Hide spinner once the data is loaded.
     return await response.json();
-    // localStorage.setItem("data", JSON.stringify(data.data)); // Storing data on local storage.
   } catch (error) {
     alert(error);
   }
@@ -155,3 +158,11 @@ function isInCart(id) {
   }
   return false;
 }
+
+// Attach click event listener to Delete DB button.
+document.getElementById("delete-db-btn").addEventListener("click", () => {
+  if (confirm("Do you want to delete entire Local Storage?")) {
+    localStorage.clear();
+    alert("All Data has been deleted!");
+  }
+});

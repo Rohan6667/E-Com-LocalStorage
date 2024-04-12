@@ -15,7 +15,55 @@
   justify-content: space-around;
   background-color: #24a0ed;
   box-shadow: 0 0 0.25rem black;
-  font-family: "Times New Roman", Times, serif;
+}
+
+#navbar a:hover {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+}
+
+#navbar i {
+  margin: 0 0.25rem;
+}
+
+.home {
+  color: white;
+  text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.cart {
+  color: black;
+  text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.spinner {
+  display: none;
+  z-index: 100;
+  height: 5rem;
+  width: 5rem;
+  border: solid 0.5rem whitesmoke;
+  border-left: rgb(100, 100, 100) solid 0.5rem;
+  border-right: rgb(100, 100, 100) solid 0.5rem;
+  border-radius: 50%;
+  animation: spinner 1s none infinite;
+  grid-row: 2/4;
+  grid-column: 2/4;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 button {
@@ -38,8 +86,7 @@ i {
   border-radius: 0.25rem;
 }
 
-#product-container,
-#cart-container {
+#product-container {
   display: grid;
   gap: 1rem;
   padding: 0 0.5rem 0.5rem;
@@ -88,29 +135,19 @@ img {
   cursor: pointer;
 }
 
-/* Cart Page Styling */
-h1,
-h4 {
-  display: inline;
-}
 
-.button-section {
+/* Delete LocalStorage Button */
+#delete-db-btn {
   width: 100%;
-}
-
-.increment-btn,
-.decrement-btn {
-  width: 10%;
-  height: 10%;
-  margin: 0 0.25rem;
-}
-
-.remove-btn {
-  width: auto;
-  margin-left: 35%;
-}
-
-.quantity {
-  font-size: 1rem;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+  margin: 0.25rem 0rem;
+  transition: 0.25s ease-in-out;
   font-weight: bold;
+}
+
+#delete-db-btn:hover {
+  background-color: red;
+  color: white;
 }
