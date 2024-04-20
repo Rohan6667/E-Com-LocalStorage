@@ -14,91 +14,112 @@ function showCart() {
     card.className = "card";
 
     // Image
-    const image = document.createElement('img');
+    const image = document.createElement("img");
     image.className = "card-img";
     image.src = cart[i].img;
     card.appendChild(image);
 
     // Product Name
-    const h2 = document.createElement('h2');
-    h2.classList.add('brand-name');
-    h2.innerText = `${cart[i].brand}`;
-    card.appendChild(h2);
-
-    // Product Price
-    const price = document.createElement('h3');
-    price.classList.add('price');
-    price.innerHTML = `Price : ₹${cart[i].price}`;
-    card.appendChild(price);
+    const h1 = document.createElement("h1");
+    h1.classList.add("brand-name");
+    h1.innerText = `${cart[i].brand}`;
+    card.appendChild(h1);
 
     // Product Details
-    const details = document.createElement('p');
-    details.classList.add('details');
+    const details = document.createElement("small");
+    details.classList.add("details");
     details.innerText = cart[i].details;
     card.appendChild(details);
 
-    // Product Category
-    const category = document.createElement('h4');
-    category.classList.add('category');
-    category.innerText = cart[i].category.replace("_", " ");
-    card.appendChild(category);
+    // Price and Category container
+    const priceCategoryContainer = document.createElement("div");
+    priceCategoryContainer.classList.add("price-category-container");
 
-    // Button Section Increment/Decrement.
-    const btnSection = document.createElement('section');
-    btnSection.classList.add('button-section');
+    // Product Category
+    const category = document.createElement("span");
+    category.classList.add("category");
+    category.innerText = cart[i].category.replace("_", " ");
+    priceCategoryContainer.appendChild(category);
+
+    // Product Price
+    const price = document.createElement("span");
+    price.classList.add("price");
+    price.innerHTML = `₹${cart[i].price}`;
+    priceCategoryContainer.appendChild(price);
+
+    card.appendChild(priceCategoryContainer);
+
+    // Container for all elements (Increment/Decrement/Remove).
+    const btnSection = document.createElement("section");
+    btnSection.classList.add("button-section");
     card.appendChild(btnSection);
 
-    // Quantity
-    const quantitySpan = document.createElement('span');
+    // Quantity Section for Increment/Decrement buttons only.
+    const quantitySection = document.createElement("span");
+    quantitySection.classList.add("quantity-section");
+
+    // Quantity Span
+    const quantitySpan = document.createElement("span");
+    quantitySpan.classList.add("quantity-span");
     quantitySpan.id = "quantity-span-" + cart[i].id; // Unique ID for each quantity span
     quantitySpan.innerText = cart[i].quantity; // Set initial quantity
-    qtyCount = cart[i].quantity; // Set initial quantity for the global variable
-
-    // Increment Button
-    const incrementBtn = document.createElement('button');
-    incrementBtn.classList.add('btn', 'increment-btn');
-    incrementBtn.innerText = "+";
-    // Adding event listener on button to increase the quantity.
-    incrementBtn.addEventListener("click", (event) => {
-      cart[i].quantity++; // Increase quantity
-      document.getElementById("quantity-span-" + cart[i].id).innerText = cart[i].quantity; // Update quantity display
-      localStorage.setItem("cart", JSON.stringify(cart)); // Update cart in localStorage
-      showTotalCount(); // Update total price
-    });
 
     // Decrement Button
-    const decrementBtn = document.createElement('button');
-    decrementBtn.classList.add('btn', 'decrement-btn');
-    decrementBtn.innerText = "-";
+    const decrementBtn = document.createElement("button");
+    decrementBtn.classList.add("decrement-btn");
+    decrementBtn.innerText = "–";
+
     // Adding event listener on button to decrease the quantity.
     decrementBtn.addEventListener("click", (event) => {
-      if (cart[i].quantity > 1) { // Check if quantity is greater than 1
+      if (cart[i].quantity > 1) {
+        // Check if quantity is greater than 1
         cart[i].quantity--; // Decrease quantity
-        document.getElementById("quantity-span-" + cart[i].id).innerText = cart[i].quantity; // Update quantity display
+        document.getElementById("quantity-span-" + cart[i].id).innerText =
+          cart[i].quantity; // Update quantity display
         localStorage.setItem("cart", JSON.stringify(cart)); // Update cart in localStorage
         showTotalCount(); // Update total price
       }
     });
 
-    // Remove Button
-    const removeBtn = document.createElement('button');
-    removeBtn.classList.add('remove-btn')
-    removeBtn.innerText = `Remove`;
-    removeBtn.id = cart[i].id;
-    // Adding event listener on button to remove product from the cart.
-    removeBtn.addEventListener('click', (event) => {
+    // Increment Button
+    const incrementBtn = document.createElement("button");
+    incrementBtn.classList.add("increment-btn");
+    incrementBtn.innerText = "+";
+
+    // Adding event listener on button to increase the quantity.
+    incrementBtn.addEventListener("click", (event) => {
+      cart[i].quantity++; // Increase quantity
+      document.getElementById("quantity-span-" + cart[i].id).innerText =
+        cart[i].quantity; // Update quantity display
+      localStorage.setItem("cart", JSON.stringify(cart)); // Update cart in localStorage
+      showTotalCount(); // Update total price
+    });
+
+    //Remove Icon
+    const removeIcon = document.createElement("i");
+    removeIcon.classList.add("remove-icon", "fa-solid", "fa-trash-can");
+
+    /* Adding event listener on button to remove product from the cart. */
+    removeIcon.addEventListener("click", (event) => {
       cart.splice(i, 1); // Remove the corresponding object from the array.
       localStorage.setItem("cart", JSON.stringify(cart)); // Update the localStorage with the modified cart array.
       showCart(); // Render the cart again to reflect the changes.
       showTotalCount(); // Update total price
+
+      /* Condition to Empty cart when no items left*/
+      if (cart.length === 0) {
+        localStorage.clear();
+        // alert("LocalStorage is Empty.");
+      }
     });
 
     // Appending elements to btnSection
-    btnSection.appendChild(incrementBtn);
-    btnSection.appendChild(quantitySpan);
-    btnSection.appendChild(decrementBtn);
-    btnSection.appendChild(removeBtn);
-    document.querySelector("#cart-container").appendChild(card); // Appending card into the product container.
+    quantitySection.appendChild(decrementBtn);
+    quantitySection.appendChild(quantitySpan);
+    quantitySection.appendChild(incrementBtn);
+    btnSection.appendChild(quantitySection);
+    btnSection.appendChild(removeIcon);
+    cartContainer.appendChild(card); // Appending card into the product container.
   }
   showTotalCount(); // Call to ensure total price is displayed initially
 }
@@ -112,7 +133,7 @@ function showTotalCount() {
 
   let cartTotalSpan = document.createElement("span"); // Creating a new span element to hold the total price value.
   cartTotalSpan.classList.add("cart-total");
-  cart.forEach(element => {
+  cart.forEach((element) => {
     totalPrice += element.price * element.quantity;
   });
   cartTotalSpan.innerText = totalPrice;

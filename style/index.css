@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: whitesmoke;
+}
+
 #navbar {
   width: 100%;
   height: 10vh;
@@ -17,13 +21,6 @@
   box-shadow: 0 0 0.25rem black;
 }
 
-#navbar a:hover {
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
-  color: white;
-}
-
 #navbar i {
   margin: 0 0.25rem;
 }
@@ -31,50 +28,120 @@
 .home {
   color: white;
   text-decoration: none;
-    font-weight: bold;
-    font-size: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .cart {
   color: black;
   text-decoration: none;
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-.spinner {
-  display: none;
-  z-index: 100;
-  height: 5rem;
-  width: 5rem;
-  border: solid 0.5rem whitesmoke;
-  border-left: rgb(100, 100, 100) solid 0.5rem;
-  border-right: rgb(100, 100, 100) solid 0.5rem;
-  border-radius: 50%;
-  animation: spinner 1s none infinite;
-  grid-row: 2/4;
-  grid-column: 2/4;
-}
-
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-button {
   font-weight: bold;
-  font-size: normal;
+  font-size: 1rem;
+}
+
+.cart:hover {
+  color: white;
 }
 
 i {
   margin: 0 0.5rem;
 }
 
+/* Shimmer Effect CSS */
+.shimmer-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 18rem;
+  background-color: gray;
+  padding: 0.25rem;
+  box-shadow: 0 0 0.5rem 0 #a9a9a9;
+  animation: shimmer 1s linear infinite alternate-reverse;
+  opacity: 0.5;
+}
+
+.img-tag {
+  width: 100%;
+  height: 50%;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+}
+
+.brand-name-tag {
+  width: 70%;
+  height: 8%;
+  margin: 0.5rem 0 0 0;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+}
+
+.price-tag {
+  width: 30%;
+  height: 4%;
+  margin: 0.75rem 0 0 0;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+  align-self: end;
+}
+
+.description1 {
+  width: 85%;
+  height: 3%;
+  margin: 0.75rem 0 0 0;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+}
+
+.description2 {
+  width: 100%;
+  height: 3%;
+  margin: 0.1rem 0 0 0;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+}
+
+.description3 {
+  width: 65%;
+  height: 3%;
+  margin: 0.1rem 0 0 0;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+}
+
+.category-tag {
+  width: 30%;
+  height: 4.5%;
+  margin: 0.75rem 0 0 0;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+}
+
+.btn-tag {
+  width: 50%;
+  height: 7%;
+  margin: 2rem 0 0 0;
+  background-color: rgb(200, 200, 200);
+  background: linear-gradient(lightgray, darkgray);
+  align-self: center;
+}
+
+@keyframes shimmer {
+  0% {
+    background-color: lightgray;
+  }
+
+  50% {
+    background-color: rgb(150, 150, 150);
+  }
+
+  100% {
+    background-color: darkgray;
+  }
+}
+
+/* Filter Section CSS */
 .filter-section {
   text-align: center;
   margin: 0.5rem 0;
@@ -84,14 +151,15 @@ i {
   margin: 0 auto;
   height: 1.5rem;
   border-radius: 0.25rem;
+  background-color: aliceblue;
 }
 
+/* Product Card CSS */
 #product-container {
   display: grid;
   gap: 1rem;
   padding: 0 0.5rem 0.5rem;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   justify-items: center;
   align-items: center;
 }
@@ -105,49 +173,79 @@ img {
   flex-direction: column;
   height: fit-content;
   width: fit-content;
-  box-shadow: 0rem 0rem 0.25rem black;
   padding: 0 0.5rem 0.5rem;
+  border-radius: 0.25rem;
   background-color: white;
-  font-family: arial;
+  box-shadow: 0rem 0rem 0.25rem black;
+}
+
+.brand-name {
+  font-size: 1.35rem;
+}
+
+.details {
+  width: 100%;
+  height: 2rem;
+  color: rgb(111, 111, 111);
+  text-overflow: "ellipsis";
+  overflow: hidden;
+  font-size: 0.75rem;
+}
+
+.price-category-container {
+  width: 100%;
+  margin: 0.25rem 0 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
 }
 
 .price {
   text-align: right;
+  font-weight: bold;
 }
 
-.details {
-  color: rgb(50, 50, 50);
-  margin: 0.25rem 0;
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-.category {
+.buy-now-btn {
+  background-color: #ed7824;
+  height: 1.5rem;
+  border-radius: 0.15rem;
+  padding: 0.25rem;
   margin: 0.25rem 0;
+  cursor: pointer;
+  border-style: none;
+  font-size: 1.25dvw;
+  font-weight: bold;
+}
+
+.buy-now-btn:hover {
+  border: 0.01rem solid black;
 }
 
 .add-to-cart-btn {
   background-color: #24a0ed;
-  margin: 0 auto;
   height: 1.5rem;
   color: #fff;
   border-style: none;
   border-radius: 0.25rem;
   padding: 0.25rem;
   cursor: pointer;
-}
-
-
-/* Delete LocalStorage Button */
-#delete-db-btn {
-  width: 100%;
-  background-color: transparent;
-  border-style: none;
-  cursor: pointer;
-  margin: 0.25rem 0rem;
-  transition: 0.25s ease-in-out;
+  font-size: 1.25dvw;
   font-weight: bold;
 }
 
-#delete-db-btn:hover {
-  background-color: red;
-  color: white;
+.add-to-cart-btn:hover {
+  border: 0.01rem solid black;
 }
